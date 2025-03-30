@@ -60,7 +60,6 @@ namespace ASP.Net_HW_02._03._25.Core
             {
                 if (shape.Type == "Circle")
                 {
-                    // Извлечение радиуса из ParametersInfo (например, radius: 6.3)
                     double radius = 0;
                     var match = Regex.Match(shape.ParametersInfo, @"radius:\s*(\d+(\.\d+)?)");
                     if (match.Success && double.TryParse(match.Groups[1].Value, out radius))
