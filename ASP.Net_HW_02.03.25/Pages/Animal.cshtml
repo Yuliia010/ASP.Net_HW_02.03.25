@@ -1,0 +1,59 @@
+﻿@page
+@model ASP.Net_HW_02._03._25.Pages.AnimalModel
+@{
+}
+
+
+<form method="post">
+    <div class="form-group">
+        <label for="AnimalType">Вид тварини:</label>
+        <select asp-for="SelectedAnimalType" asp-items="Model.AnimalTypes" class="form-control">
+        </select>
+        <span asp-validation-for="SelectedAnimalType" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Animal.Name">Ім'я:</label>
+        <input asp-for="Animal.Name" class="form-control" required />
+        <span asp-validation-for="Animal.Name" class="text-danger"></span>
+    </div>
+
+
+    <div class="form-group">
+        <label asp-for="Animal.OtherInfo">Інша інформація:</label>
+        <textarea asp-for="Animal.OtherInfo" class="form-control"></textarea>
+        <span asp-validation-for="Animal.OtherInfo" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Зберегти</button>
+</form>
+
+<hr />
+<br />
+
+<div>
+    <ol>
+        @foreach (var person in Model.Animals)
+        {
+            <li>
+                <p>Name: @person.Name</p>
+                <p>Sound: @person.Sound</p>
+                <p>OtherInfo: @person.OtherInfo</p>
+            </li>
+
+        }
+    </ol>
+
+</div>
+
+<style>
+    .form-group {
+        width: 600px;
+        margin-bottom: 20px;
+    }
+
+    form {
+        max-width: 600px;
+        margin: 0 auto 0 0;
+    }
+</style>
