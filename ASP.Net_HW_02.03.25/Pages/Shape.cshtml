@@ -1,0 +1,120 @@
+﻿@page
+@using ASP.Net_HW_02._03._25.Models.Shapes
+@model ASP.Net_HW_02._03._25.Pages.ShapeModel
+@{
+}
+
+
+<form method="post">
+    <div class="form-group">
+        <label for="ShapeType">Вид фігури:</label>
+        <select asp-for="SelectedShapeType" asp-items="Model.ShapeTypes" class="form-control" id="shapeType">
+        </select>
+        <span asp-validation-for="SelectedShapeType" class="text-danger"></span>
+    </div>
+
+    <div class="form-group shape-field" id="circleFields">
+        <label asp-for="Radius">Радіус:</label>
+        <input asp-for="Radius" class="form-control" />
+        <span asp-validation-for="Radius" class="text-danger"></span>
+    </div>
+
+    <div class="form-group shape-field" id="squareFields">
+        <label asp-for="Side">Сторона квадрата:</label>
+        <input asp-for="Side" class="form-control" />
+        <span asp-validation-for="Side" class="text-danger"></span>
+    </div>
+
+    <div class="form-group shape-field" id="triangleFields">
+        <label asp-for="Base">Основа трикутника:</label>
+        <input asp-for="Base" class="form-control" />
+
+        <label asp-for="Height">Висота трикутника:</label>
+        <input asp-for="Height" class="form-control" />
+
+        <span asp-validation-for="Base" class="text-danger"></span>
+        <span asp-validation-for="Height" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Shape.OtherInfo">Інша інформація:</label>
+        <textarea asp-for="Shape.OtherInfo" class="form-control"></textarea>
+        <span asp-validation-for="Shape.OtherInfo" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Зберегти</button>
+</form>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const shapeTypeSelect = document.getElementById("shapeType");
+        const circleFields = document.getElementById("circleFields");
+        const squareFields = document.getElementById("squareFields");
+        const triangleFields = document.getElementById("triangleFields");
+
+        function updateFields() {
+            const selectedType = shapeTypeSelect.value;
+
+            circleFields.style.display = "none";
+            squareFields.style.display = "none";
+            triangleFields.style.display = "none";
+
+            if (selectedType === "Circle") {
+                circleFields.style.display = "block";
+            } else if (selectedType === "Square") {
+                squareFields.style.display = "block";
+            } else if (selectedType === "Triangle") {
+                triangleFields.style.display = "block";
+            }
+        }
+
+        updateFields();
+
+        shapeTypeSelect.addEventListener("change", updateFields);
+    });
+</script>
+<hr />
+<br />
+
+<div>
+    <ol>
+        @foreach (var shape in Model.Shapes)
+        {
+            <li>
+                <p>Name: @shape.Type</p>
+                <p>Presentation:</p>
+                <pre>@shape.Presentation</pre>
+                <p>OtherInfo: @shape.OtherInfo</p>
+
+                @switch (shape)
+                {
+                    case CircleDto circle:
+                        <p>Radius: @circle.Radius</p>
+                        break;
+                    case SquareDto square:
+                        <p>Side: @square.Side</p>
+                        break;
+                    case TriangleDto triangle:
+                        <p>Base: @triangle.Base</p>
+                        <p>Height: @triangle.Height</p>
+                        break;
+                    default:
+                        <p>No specific parameters</p>
+                        break;
+                }
+            </li>
+        }
+    </ol>
+</div>
+
+<style>
+    .form-group {
+        width: 600px;
+        margin-bottom: 20px;
+    }
+
+    form {
+        max-width: 600px;
+        margin: 0 auto 0 0;
+    }
+</style>

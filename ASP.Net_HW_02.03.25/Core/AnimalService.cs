@@ -2,6 +2,7 @@
 using ASP.Net_HW_02._03._25.DAL.Abstract;
 using ASP.Net_HW_02._03._25.DAL.Entities;
 using ASP.Net_HW_02._03._25.Models;
+using ASP.Net_HW_02._03._25.Models.Animals;
 using System;
 
 namespace ASP.Net_HW_02._03._25.Core
@@ -13,7 +14,7 @@ namespace ASP.Net_HW_02._03._25.Core
         {
             _repository = repository;
         }
-        public async Task AddAsync(AnimalDto animal)
+        public async Task AddAsync(AnimalBaseDto animal)
         {
             animal.Id = Guid.NewGuid();
 
@@ -32,9 +33,9 @@ namespace ASP.Net_HW_02._03._25.Core
             await _repository.DeleteAsync(id);
         }
 
-        public async Task<List<AnimalDto>> GetAllAsync()
+        public async Task<List<AnimalBaseDto>> GetAllAsync()
         {
-            var animalsDto = new List<AnimalDto>();
+            var animalsDto = new List<AnimalBaseDto>();
 
             var result = await _repository.GetAllAsync();
 
@@ -75,7 +76,7 @@ namespace ASP.Net_HW_02._03._25.Core
                 }
                 else
                 {
-                    var otherDto = new AnimalDto
+                    var otherDto = new AnimalBaseDto
                     {
                         Name = animal.Name,
                         Id = animal.Id,
@@ -89,7 +90,7 @@ namespace ASP.Net_HW_02._03._25.Core
             return animalsDto;
         }
 
-        public async Task UpdateAsync(AnimalDto animal)
+        public async Task UpdateAsync(AnimalBaseDto animal)
         {
             var an = new Animal
             {

@@ -16,7 +16,9 @@ builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(conS
 builder.Services.AddScoped<IAnimalRepository, AnimalRepository>();
 builder.Services.AddScoped<IAnimalService, AnimalService>();
 
-//builder.Services.AddScoped<IPersonService, PersonService>();
+builder.Services.AddScoped<IShapeRepository, ShapeRepository>();
+builder.Services.AddScoped<IShapeService, ShapeService>();
+
 
 
 var app = builder.Build();

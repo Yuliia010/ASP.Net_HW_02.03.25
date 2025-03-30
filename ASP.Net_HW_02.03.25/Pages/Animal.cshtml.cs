@@ -1,6 +1,7 @@
 using ASP.Net_HW_02._03._25.Abstract;
 using ASP.Net_HW_02._03._25.DAL.Entities;
 using ASP.Net_HW_02._03._25.Models;
+using ASP.Net_HW_02._03._25.Models.Animals;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -10,14 +11,14 @@ namespace ASP.Net_HW_02._03._25.Pages
     public class AnimalModel : PageModel
     {
         [BindProperty]
-        public AnimalDto Animal { get; set; }
+        public AnimalBaseDto Animal { get; set; }
 
         [BindProperty]
         public string SelectedAnimalType { get; set; } = "Other";
 
         public List<SelectListItem> AnimalTypes { get; set; }
 
-        public List<AnimalDto> Animals { get; set; } = new List<AnimalDto>();
+        public List<AnimalBaseDto> Animals { get; set; } = new List<AnimalBaseDto>();
 
         private readonly IAnimalService _animalService;
         public AnimalModel(IAnimalService animalService)
@@ -64,7 +65,7 @@ namespace ASP.Net_HW_02._03._25.Pages
                     Animal = new CowDto { Name = Animal.Name, OtherInfo = Animal.OtherInfo };
                     break;
                 case "Other":
-                    Animal = new AnimalDto { Name = Animal.Name, OtherInfo = Animal.OtherInfo };
+                    Animal = new AnimalBaseDto { Name = Animal.Name, OtherInfo = Animal.OtherInfo };
                     break;
                 default:
                     break;
